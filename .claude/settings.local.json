@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/superchris/dev/waylo/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

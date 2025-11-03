@@ -1,0 +1,62 @@
+{
+  "name": "AcmUcDemo Dev Container",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true,
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+  "forwardPorts": [5432],
+  "portsAttributes": {
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "jakebecker.elixir-ls",
+        "phoenixframework.phoenix",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens",
+        "GitHub.copilot"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "[elixir]": {
+          "editor.defaultFormatter": "jakebecker.elixir-ls"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[css]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[html]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "elixirLS.suggestSpecs": true,
+        "elixirLS.dialyzerEnabled": true,
+        "elixirLS.fetchDeps": false,
+        "elixirLS.enableTestLenses": true
+      }
+    }
+  },
+  "remoteUser": "vscode"
+}

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ELIXIR_VERSION: 1.18.4
+        OTP_VERSION: 27.2.4
+        DEBIAN_VERSION: bookworm-20251020-slim
+    volumes:
+      - ..:/workspace:cached
+      - ~/.ssh:/home/vscode/.ssh:cached
+      - /var/run/docker.sock:/var/run/docker-host.sock
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db/acm_uc_demo_dev
+      PHX_HOST: localhost
+      SECRET_KEY_BASE: development_secret_key_base_at_least_64_characters_long_for_security
+      MIX_ENV: dev
+    command: sleep infinity
+    network_mode: service:db
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: acm_uc_demo_dev
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres-data:
