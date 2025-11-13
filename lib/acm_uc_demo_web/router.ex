@@ -22,6 +22,10 @@ defmodule AcmUcDemoWeb.Router do
     live "/airplanes/new", AirplaneLive.Form, :new
     live "/airplanes/:id", AirplaneLive.Show, :show
     live "/airplanes/:id/edit", AirplaneLive.Form, :edit
+    live "/pilots", PilotLive.Index, :index
+    live "/pilots/new", PilotLive.Form, :new
+    live "/pilots/:id", PilotLive.Show, :show
+    live "/pilots/:id/edit", PilotLive.Form, :edit
   end
 
   # Other scopes may use custom stacks.
