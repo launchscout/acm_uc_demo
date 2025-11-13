@@ -18,6 +18,10 @@ defmodule AcmUcDemoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    live "/airplanes", AirplaneLive.Index, :index
+    live "/airplanes/new", AirplaneLive.Form, :new
+    live "/airplanes/:id", AirplaneLive.Show, :show
+    live "/airplanes/:id/edit", AirplaneLive.Form, :edit
   end
 
   # Other scopes may use custom stacks.
