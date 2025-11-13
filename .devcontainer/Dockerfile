@@ -8,18 +8,18 @@ FROM docker.io/hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEB
 # Install build dependencies and development tools
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
-    build-essential \
-    curl \
-    git \
-    inotify-tools \
-    postgresql-client \
-    sudo \
-    vim \
-    wget \
-    zsh \
-    ca-certificates \
-    gnupg \
-    lsb-release \
+  build-essential \
+  curl \
+  git \
+  inotify-tools \
+  postgresql-client \
+  sudo \
+  vim \
+  wget \
+  zsh \
+  ca-certificates \
+  gnupg \
+  lsb-release \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js LTS
@@ -27,13 +27,16 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
   && apt-get install -y nodejs \
   && rm -rf /var/lib/apt/lists/*
 
+# install claude code
+RUN npm install -g @anthropic-ai/claude-code
+
 # Install Docker CLI for Docker-in-Docker support
 RUN install -m 0755 -d /etc/apt/keyrings \
   && curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
   && chmod a+r /etc/apt/keyrings/docker.gpg \
   && echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-    "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-    tee /etc/apt/sources.list.d/docker.list > /dev/null \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null \
   && apt-get update \
   && apt-get install -y docker-ce-cli docker-compose-plugin \
   && rm -rf /var/lib/apt/lists/*

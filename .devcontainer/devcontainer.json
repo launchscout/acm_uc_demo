@@ -26,6 +26,7 @@
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "ms-azuretools.vscode-docker",
+        "anthropic.claude-code",
         "eamodio.gitlens",
         "GitHub.copilot"
       ],
