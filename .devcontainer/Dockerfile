@@ -9,6 +9,7 @@ FROM docker.io/hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEB
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
   build-essential \
+  openssh-client \
   curl \
   git \
   inotify-tools \
@@ -22,8 +23,11 @@ RUN apt-get update \
   lsb-release \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Node.js LTS
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+# Install Node.js LTS - manually add NodeSource repository and install
+RUN mkdir -p /etc/apt/keyrings \
+  && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+  && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
+  && apt-get update \
   && apt-get install -y nodejs \
   && rm -rf /var/lib/apt/lists/*
 
