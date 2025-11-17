@@ -3,6 +3,8 @@ defmodule AcmUcDemoWeb.FlightLive.Form do
 
   alias AcmUcDemo.Flights
   alias AcmUcDemo.Flights.Flight
+  alias AcmUcDemo.Pilots
+  alias AcmUcDemo.Airplanes
 
   @impl true
   def render(assigns) do
@@ -14,6 +16,20 @@ defmodule AcmUcDemoWeb.FlightLive.Form do
       </.header>
 
       <.form for={@form} id="flight-form" phx-change="validate" phx-submit="save">
+        <.input
+          field={@form[:pilot_id]}
+          type="select"
+          label="Pilot"
+          options={@pilots}
+          prompt="Select a pilot"
+        />
+        <.input
+          field={@form[:airplane_id]}
+          type="select"
+          label="Airplane"
+          options={@airplanes}
+          prompt="Select an airplane"
+        />
         <.input field={@form[:hobbs_reading]} type="number" label="Hobbs reading" step="any" />
         <.input field={@form[:notes]} type="textarea" label="Notes" />
         <footer>
@@ -42,6 +58,8 @@ defmodule AcmUcDemoWeb.FlightLive.Form do
     socket
     |> assign(:page_title, "Edit Flight")
     |> assign(:flight, flight)
+    |> assign(:pilots, pilot_options())
+    |> assign(:airplanes, airplane_options())
     |> assign(:form, to_form(Flights.change_flight(flight)))
   end
 
@@ -51,7 +69,19 @@ defmodule AcmUcDemoWeb.FlightLive.Form do
     socket
     |> assign(:page_title, "New Flight")
     |> assign(:flight, flight)
+    |> assign(:pilots, pilot_options())
+    |> assign(:airplanes, airplane_options())
     |> assign(:form, to_form(Flights.change_flight(flight)))
+  end
+
+  defp pilot_options do
+    Pilots.list_pilots()
+    |> Enum.map(&{&1.name, &1.id})
+  end
+
+  defp airplane_options do
+    Airplanes.list_airplanes()
+    |> Enum.map(&{"#{&1.make} #{&1.model} (#{&1.tail_number})", &1.id})
   end
 
   @impl true

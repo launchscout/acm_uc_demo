@@ -3,10 +3,11 @@ defmodule AcmUcDemoWeb.FlightLiveTest do
 
   import Phoenix.LiveViewTest
   import AcmUcDemo.FlightsFixtures
+  import AcmUcDemo.PilotsFixtures
+  import AcmUcDemo.AirplanesFixtures
 
-  @create_attrs %{hobbs_reading: "120.5", notes: "some notes"}
-  @update_attrs %{hobbs_reading: "456.7", notes: "some updated notes"}
-  @invalid_attrs %{hobbs_reading: nil, notes: nil}
+  @invalid_attrs %{hobbs_reading: nil, notes: nil, pilot_id: nil, airplane_id: nil}
+
   defp create_flight(_) do
     flight = flight_fixture()
 
@@ -24,6 +25,10 @@ defmodule AcmUcDemoWeb.FlightLiveTest do
     end
 
     test "saves new flight", %{conn: conn} do
+      pilot = pilot_fixture()
+      airplane = airplane_fixture()
+      create_attrs = %{hobbs_reading: "120.5", notes: "some notes", pilot_id: pilot.id, airplane_id: airplane.id}
+
       {:ok, index_live, _html} = live(conn, ~p"/flights")
 
       assert {:ok, form_live, _} =
@@ -40,7 +45,7 @@ defmodule AcmUcDemoWeb.FlightLiveTest do
 
       assert {:ok, index_live, _html} =
                form_live
-               |> form("#flight-form", flight: @create_attrs)
+               |> form("#flight-form", flight: create_attrs)
                |> render_submit()
                |> follow_redirect(conn, ~p"/flights")
 
@@ -50,6 +55,8 @@ defmodule AcmUcDemoWeb.FlightLiveTest do
     end
 
     test "updates flight in listing", %{conn: conn, flight: flight} do
+      update_attrs = %{hobbs_reading: "456.7", notes: "some updated notes", pilot_id: flight.pilot_id, airplane_id: flight.airplane_id}
+
       {:ok, index_live, _html} = live(conn, ~p"/flights")
 
       assert {:ok, form_live, _html} =
@@ -66,7 +73,7 @@ defmodule AcmUcDemoWeb.FlightLiveTest do
 
       assert {:ok, index_live, _html} =
                form_live
-               |> form("#flight-form", flight: @update_attrs)
+               |> form("#flight-form", flight: update_attrs)
                |> render_submit()
                |> follow_redirect(conn, ~p"/flights")
 
@@ -94,6 +101,8 @@ defmodule AcmUcDemoWeb.FlightLiveTest do
     end
 
     test "updates flight and returns to show", %{conn: conn, flight: flight} do
+      update_attrs = %{hobbs_reading: "456.7", notes: "some updated notes", pilot_id: flight.pilot_id, airplane_id: flight.airplane_id}
+
       {:ok, show_live, _html} = live(conn, ~p"/flights/#{flight}")
 
       assert {:ok, form_live, _} =
@@ -110,7 +119,7 @@ defmodule AcmUcDemoWeb.FlightLiveTest do
 
       assert {:ok, show_live, _html} =
                form_live
-               |> form("#flight-form", flight: @update_attrs)
+               |> form("#flight-form", flight: update_attrs)
                |> render_submit()
                |> follow_redirect(conn, ~p"/flights/#{flight}")
 
