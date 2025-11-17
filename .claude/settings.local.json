@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Read(//Users/superchris/dev/waylo/**)"
+      "Read(//Users/superchris/dev/waylo/**)",
+      "Bash(mix test:*)"
     ],
     "deny": [],
     "ask": []
