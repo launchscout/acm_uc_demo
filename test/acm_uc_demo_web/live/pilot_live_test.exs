@@ -5,7 +5,10 @@ defmodule AcmUcDemoWeb.PilotLiveTest do
   import AcmUcDemo.PilotsFixtures
 
   @create_attrs %{name: "some name", certificate_number: "some certificate_number"}
-  @update_attrs %{name: "some updated name", certificate_number: "some updated certificate_number"}
+  @update_attrs %{
+    name: "some updated name",
+    certificate_number: "some updated certificate_number"
+  }
   @invalid_attrs %{name: nil, certificate_number: nil}
   defp create_pilot(_) do
     pilot = pilot_fixture()

@@ -38,6 +38,26 @@ defmodule AcmUcDemo.Airplanes do
   def get_airplane!(id), do: Repo.get!(Airplane, id)
 
   @doc """
+  Gets a single airplane with flights and pilots preloaded.
+
+  Raises `Ecto.NoResultsError` if the Airplane does not exist.
+
+  ## Examples
+
+      iex> get_airplane_with_flights!(123)
+      %Airplane{flights: [%Flight{pilot: %Pilot{}}]}
+
+      iex> get_airplane_with_flights!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_airplane_with_flights!(id) do
+    Airplane
+    |> Repo.get!(id)
+    |> Repo.preload(flights: :pilot)
+  end
+
+  @doc """
   Creates a airplane.
 
   ## Examples

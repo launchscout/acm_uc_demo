@@ -4,8 +4,18 @@ defmodule AcmUcDemoWeb.AirplaneLiveTest do
   import Phoenix.LiveViewTest
   import AcmUcDemo.AirplanesFixtures
 
-  @create_attrs %{make: "some make", model: "some model", tail_number: "some tail_number", initial_hours: "120.5"}
-  @update_attrs %{make: "some updated make", model: "some updated model", tail_number: "some updated tail_number", initial_hours: "456.7"}
+  @create_attrs %{
+    make: "some make",
+    model: "some model",
+    tail_number: "some tail_number",
+    initial_hours: "120.5"
+  }
+  @update_attrs %{
+    make: "some updated make",
+    model: "some updated model",
+    tail_number: "some updated tail_number",
+    initial_hours: "456.7"
+  }
   @invalid_attrs %{make: nil, model: nil, tail_number: nil, initial_hours: nil}
   defp create_airplane(_) do
     airplane = airplane_fixture()

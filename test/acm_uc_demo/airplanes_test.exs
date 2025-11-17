@@ -21,7 +21,12 @@ defmodule AcmUcDemo.AirplanesTest do
     end
 
     test "create_airplane/1 with valid data creates a airplane" do
-      valid_attrs = %{make: "some make", model: "some model", tail_number: "some tail_number", initial_hours: "120.5"}
+      valid_attrs = %{
+        make: "some make",
+        model: "some model",
+        tail_number: "some tail_number",
+        initial_hours: "120.5"
+      }
 
       assert {:ok, %Airplane{} = airplane} = Airplanes.create_airplane(valid_attrs)
       assert airplane.make == "some make"
@@ -36,7 +41,13 @@ defmodule AcmUcDemo.AirplanesTest do
 
     test "update_airplane/2 with valid data updates the airplane" do
       airplane = airplane_fixture()
-      update_attrs = %{make: "some updated make", model: "some updated model", tail_number: "some updated tail_number", initial_hours: "456.7"}
+
+      update_attrs = %{
+        make: "some updated make",
+        model: "some updated model",
+        tail_number: "some updated tail_number",
+        initial_hours: "456.7"
+      }
 
       assert {:ok, %Airplane{} = airplane} = Airplanes.update_airplane(airplane, update_attrs)
       assert airplane.make == "some updated make"
