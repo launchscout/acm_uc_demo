@@ -8,6 +8,8 @@ defmodule AcmUcDemo.Airplanes.Airplane do
     field :tail_number, :string
     field :initial_hours, :decimal
 
+    has_many :flights, AcmUcDemo.Flights.Flight
+
     timestamps(type: :utc_datetime)
   end
 

@@ -26,6 +26,28 @@ defmodule AcmUcDemoWeb.AirplaneLive.Show do
         <:item title="Tail number">{@airplane.tail_number}</:item>
         <:item title="Initial hours">{@airplane.initial_hours}</:item>
       </.list>
+
+      <div class="mt-8">
+        <.header>
+          Flights
+          <:subtitle>Flight history for this airplane</:subtitle>
+        </.header>
+
+        <div class="mt-4">
+          <%= if @airplane.flights == [] do %>
+            <div class="text-gray-500 text-sm">No flights recorded yet.</div>
+          <% else %>
+            <.table id="flights-table" rows={@airplane.flights}>
+              <:col :let={flight} label="Pilot">{flight.pilot.name}</:col>
+              <:col :let={flight} label="Hobbs Reading">{flight.hobbs_reading}</:col>
+              <:col :let={flight} label="Notes">{flight.notes}</:col>
+              <:col :let={flight} label="Date">
+                {Calendar.strftime(flight.inserted_at, "%b %d, %Y %I:%M %p")}
+              </:col>
+            </.table>
+          <% end %>
+        </div>
+      </div>
     </Layouts.app>
     """
   end
@@ -35,6 +57,6 @@ defmodule AcmUcDemoWeb.AirplaneLive.Show do
     {:ok,
      socket
      |> assign(:page_title, "Show Airplane")
-     |> assign(:airplane, Airplanes.get_airplane!(id))}
+     |> assign(:airplane, Airplanes.get_airplane_with_flights!(id))}
   end
 end
