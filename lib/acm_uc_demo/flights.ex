@@ -22,6 +22,24 @@ defmodule AcmUcDemo.Flights do
   end
 
   @doc """
+  Returns the list of flights for a given airplane with pilot preloaded.
+
+  ## Examples
+
+      iex> list_flights_by_airplane(airplane_id)
+      [%Flight{pilot: %Pilot{}}, ...]
+
+  """
+  def list_flights_by_airplane(airplane_id) do
+    from(f in Flight,
+      where: f.airplane_id == ^airplane_id,
+      order_by: [desc: f.inserted_at],
+      preload: [:pilot]
+    )
+    |> Repo.all()
+  end
+
+  @doc """
   Gets a single flight.
 
   Raises `Ecto.NoResultsError` if the Flight does not exist.

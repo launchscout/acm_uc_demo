@@ -5,8 +5,8 @@ defmodule AcmUcDemo.Flights.Flight do
   schema "flights" do
     field :hobbs_reading, :decimal
     field :notes, :string
-    field :pilot_id, :id
-    field :airplane_id, :id
+    belongs_to :pilot, AcmUcDemo.Pilots.Pilot
+    belongs_to :airplane, AcmUcDemo.Airplanes.Airplane
 
     timestamps(type: :utc_datetime)
   end

@@ -5,6 +5,7 @@ defmodule AcmUcDemo.Pilots.Pilot do
   schema "pilots" do
     field :name, :string
     field :certificate_number, :string
+    has_many :flights, AcmUcDemo.Flights.Flight
 
     timestamps(type: :utc_datetime)
   end

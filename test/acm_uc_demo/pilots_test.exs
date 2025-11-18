@@ -34,7 +34,11 @@ defmodule AcmUcDemo.PilotsTest do
 
     test "update_pilot/2 with valid data updates the pilot" do
       pilot = pilot_fixture()
-      update_attrs = %{name: "some updated name", certificate_number: "some updated certificate_number"}
+
+      update_attrs = %{
+        name: "some updated name",
+        certificate_number: "some updated certificate_number"
+      }
 
       assert {:ok, %Pilot{} = pilot} = Pilots.update_pilot(pilot, update_attrs)
       assert pilot.name == "some updated name"
